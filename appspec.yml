@@ -1,0 +1,20 @@
+version: 0.0
+os: linux
+
+
+files:
+ - source: ./
+   destination: /var/www/html
+   overwrite: yes
+
+hooks:
+  BeforeInstall:
+    - location: blue-green/install.sh
+      runas: root
+  ApplicationStart:
+    - location: blue-green/start.sh 
+      timeout: 3600
+  ValidateService:
+    - location: blue-green/status.sh
+      timeout: 3600
+      runas: root 
